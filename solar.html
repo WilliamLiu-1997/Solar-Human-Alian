@@ -7,6 +7,7 @@
       name="viewport"
       content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
+    <link rel="shortcut icon" href="#" />
     <link rel="stylesheet" href="main.css" />
     <style>
       html,
@@ -38,7 +39,7 @@
         height: 5%;
         margin: 5%;
         margin-top: 0.5%;
-        font-size: 2.5vh;
+        font-size: 25px;
         text-align: center;
         color: #ffffffcc;
         background-color: rgba(0, 0, 0, 0);
@@ -107,20 +108,14 @@
     <div id="blocker">
       <div id="content">
         <h1>Explore the Solar</h1>
-        <p>
+        <p id="para">
           Our solar system consists of our star, the Sun, and everything bound
           to it by gravity — the planets Mercury, Venus, Earth, Mars, Jupiter,
           Saturn, Uranus and Neptune, dwarf planets such as Pluto, dozens of
           moons and millions of asteroids, comets and meteoroids.
+          <br />Go to the solar system, and explore its secrets!
         </p>
-        <p>Go to the solar system, and explore its secrets!</p>
         <a class="btn" onclick="hideMe()">START EXPLORATION</a><br />
-        <!--<a class="btn1" onclick="goIsland()">Go Island</a
-        >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-          class="btn1"
-          onclick="goAlianBase()"
-          >Go Alian Base</a
-        >-->
       </div>
     </div>
   </body>
@@ -138,7 +133,6 @@
       $("#loading_background").fadeOut(800);
     }
   </script>
-  <script src="./three.js/build/three.js"></script>
   <script src="./JS/stats.min.js"></script>
   <script id="vertexShader" type="x-shader/x-vertex">
     uniform sampler2D noiseTexture;
@@ -213,34 +207,10 @@
     }
   </script>
   <script type="module">
+    import * as THREE from "./three.js/build/three.module.js";
     import { OBJLoader } from "./three.js/examples/jsm/loaders/OBJLoader.js";
     import { MTLLoader } from "./three.js/examples/jsm/loaders/MTLLoader.js";
     import { GUI } from "./three.js/examples/jsm/libs/dat.gui.module.js";
-
-    function go_alian_base() {
-      document.getElementById("blocker").style.backgroundColor =
-        "rgba(0, 0, 0, 1)";
-      $("#blocker").fadeIn(2500);
-      setTimeout(function () {
-        window.location.href = "alian_base.html";
-      }, 3500);
-    }
-    function go_island() {
-      document.getElementById("blocker").style.backgroundColor =
-        "rgba(0, 0, 0, 1)";
-      $("#blocker").fadeIn(2500);
-      setTimeout(function () {
-        window.location.href = "island.html";
-      }, 3500);
-    }
-    function go_lightning() {
-      document.getElementById("blocker").style.backgroundColor =
-        "rgba(0, 0, 0, 1)";
-      $("#blocker").fadeIn(2500);
-      setTimeout(function () {
-        window.location.href = "lightning.html";
-      }, 3500);
-    }
 
     var follow_frame1 = 0;
     var follow_frame2 = 0;
@@ -2137,43 +2107,15 @@
         document.getElementById("aiming1").style.display = "block";
       }
 
-      var delta = clock.getDelta();    
+      var delta = clock.getDelta();
       requestAnimationFrame(animate);
       if (loaded_items > 0 && loaded_items == load_items) hide_loading();
-      else return
+      else return;
       customUniforms.time.value += delta;
-      // customUniforms.baseSpeed.value = controls.baseSpeed;
-      // customUniforms.noiseScale.value = controls.noiseScale;
-      // customUniforms.bumpSpeed.value = controls.bumpSpeed;
-      // customUniforms.bumpScale.value = controls.bumpScale;
-      // customUniforms.bumpRepeat.value = controls.bumpRepeat;
-      // customUniforms.noiseRepeat.value = controls.noiseRepeat;
       timeStamp += delta;
       if (timeStamp > singleFrameTime) {
         stats.update();
-        if (selected_object && selected_object.object.name == "star3") {
-          follow_frame1 += 1;
-        } else {
-          follow_frame1 = 0;
-        }
-        if (selected_object && selected_object.object.name == "star4") {
-          follow_frame2 += 1;
-        } else {
-          follow_frame2 = 0;
-        }
-        if (selected_object && selected_object.object.name == "star6") {
-          follow_frame3 += 1;
-        } else {
-          follow_frame3 = 0;
-        }
-        if (follow_frame1 > FPS * 5) {
-          go_island();
-        } else if (follow_frame2 > FPS * 5) {
-          go_alian_base();
-        } else if (follow_frame3 > FPS * 5) {
-          go_lightning();
-        }
-        if (meteorites.length < 12) {
+        if (meteorites.length < 8) {
           var meteorite1 = generate_meteoriteObject3D(8);
           meteorites.push(meteorite1);
           scene.add(meteorite1[0]);
@@ -2395,16 +2337,6 @@
       $("#content").fadeOut(1000);
       $("#blocker").fadeOut(2000);
       $("#secondBlocker").delay(1200).fadeIn(1000);
-    }
-
-    function goAlianBase() {
-      window.location.href = "alian_base.html";
-    }
-    function goIsland() {
-      window.location.href = "island.html";
-    }
-    function goLightning() {
-      window.location.href = "lightning.html";
     }
   </script>
 </html>
